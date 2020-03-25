@@ -1,0 +1,45 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom_page_decoration}
+
+% classe de base
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{
+  family=opt,
+  prefix=opt@
+}
+
+\DeclareStringOption[Simon Jeanteur]{author}
+\DeclareStringOption[]{classe}
+\DeclareStringOption{title}
+\ProcessKeyvalOptions*
+
+\def\classe{\opt@classe}
+
+\ifx\opt@plain\@empty
+    \RequirePackage{fancyhdr,titlesec}
+
+    % variable definition
+	\def\title#1{\gdef\@title{#1}\gdef\TheTitle{#1}}    % the title
+	\def\author#1{\gdef\@author{#1}\gdef\TheAuthor{#1}} % the author
+    \author{\opt@author}                                % defining the LaTex Author
+
+	\def\rulewidth{.35pt}
+	\pagestyle{fancy}
+	\fancyfoot[C]{\noindent}
+	\fancyfoot[R]{\thepage{}/\pageref{LastPage}}
+	\fancyhead[L]{\textsl{\textit{\TheAuthor}}}
+    
+	\ifx\opt@title\@empty
+		\fancyhead[C]{{\small \textit{\TheTitle}}}
+	\else
+		\fancyhead[C]{{\small \textit{\opt@title}}}
+	\fi
+	\fancyhead[R]{\textsl{\classe}}
+	\renewcommand{\headrule}{\noindent\hfil\rule{8cm}{\rulewidth}\hfil}
+	\renewcommand{\footrule}{\noindent\hfill\rule{2cm}{\rulewidth}\\}
+\fi
+
+\newcommand{\init}{\maketitle\thispagestyle{fancy}}
+\newcommand{\initfull}{\maketitle\thispagestyle{fancy}\tableofcontents\newpage}

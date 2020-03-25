@@ -1,0 +1,34 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\ProvidesPackage{custom_standard}
+
+% classe de base
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{
+  family=opt,
+  prefix=opt@
+}
+
+\DeclareStringOption[a4paper]{format}
+\DeclareStringOption[2cm]{margin}
+\DeclareStringOption[10pt]{size}[12pt]
+\DeclareStringOption{eq}[fleqn]
+\DeclareStringOption[french]{langue}
+\DeclareStringOption{nobabel}[false]
+\DeclareStringOption{nogeometry}[false]
+\DeclareStringOption{plain}[false]
+\ProcessKeyvalOptions*
+
+\ifx\opt@nobabel\@empty
+    \RequirePackage[\opt@langue]{babel}
+\fi
+
+\ifx\opt@nogeometry\@empty
+    \RequirePackage[margin=\opt@margin]{geometry}
+\fi
+
+\RequirePackage{lettrine,lipsum,ulem,eurosym,textcomp}
+\RequirePackage[autostyle=true]{csquotes}
+\RequirePackage{tabularx,lastpage,hhline,longtable,enumitem,multicol,tabu,blkarray}

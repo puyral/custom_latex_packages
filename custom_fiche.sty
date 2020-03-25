@@ -1,0 +1,47 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom_fiche}
+
+
+\RequirePackage{mdframed}
+\RequirePackage[overload]{empheq}
+\RequirePackage{./custom_maths}
+
+\newenvironment{cLineBlock}[2][]
+{\mdfsetup{
+		frametitle={\colorbox{white}{\space\ifstrempty{#2}{#1}{#1:~\textmd{#2}}\space}},
+		linecolor=black,
+		topline=false, bottomline=false, rightline=false,
+		innertopmargin=\innertopmarginbox,
+		frametitleaboveskip=-\ht\strutbox,
+		frametitlealignment=\raggedright
+	}
+	\begin{mdframed}%
+	}
+	{\end{mdframed}}
+
+\newenvironment{cFramedBlock}[2][]
+{\mdfsetup{
+		frametitle={\colorbox{white}{\space\ifstrempty{#2}{#1}{#1:~\textmd{#2}}\space}},
+		linecolor=black,
+		innertopmargin=\innertopmarginbox,
+		frametitleaboveskip=-\ht\strutbox,
+		frametitlealignment=\raggedright,
+		nobreak=true
+	}
+	\begin{mdframed}%
+	}
+    {\end{mdframed}}
+
+\newenvironment{cSmallLineBlock}[1][]
+{\mdfsetup{
+		frametitle={\colorbox{white}{\space\ifstrempty{#1}{Démonstration}{Démonstration:~\textmd{#1}}\space}},
+		linecolor=black,
+		topline=false, bottomline=false, rightline=false,
+		innertopmargin=5pt,
+		frametitleaboveskip=-\ht\strutbox,
+		frametitlealignment=\raggedright
+	}
+	\begin{footnotesize}\begin{itemize}
+		\item[]\begin{mdframed}%
+	}
+	{\end{mdframed}\end{itemize}\end{footnotesize}}

@@ -1,0 +1,116 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{custom_maths}
+\RequirePackage{amsthm,amsmath,amssymb,mathrsfs,stmaryrd,amsbsy,mathtools}
+
+
+% DeclareMathOperator
+% -Trigo
+\DeclareMathOperator{\argsh}{argsh}
+\DeclareMathOperator{\argch}{argch}
+\DeclareMathOperator{\argth}{argth}
+\DeclareMathOperator{\argcoth}{argcoth}
+\DeclareMathOperator{\sh}{sh}
+\DeclareMathOperator{\ch}{ch}
+\DeclareMathOperator{\thfun}{th}
+\DeclareMathOperator{\cothfun}{coth}
+\DeclareMathOperator{\cotan}{cotan}
+\DeclareMathOperator{\arccotan}{arccotan}
+
+% -Sets
+\DeclareMathOperator{\Card}{Card}
+\DeclareMathOperator{\ParE}{\mathcal{P}}
+
+% -Linear Algebra
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\carA}{car}
+\DeclareMathOperator*{\Vect}{Vect}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\Id}{Id}
+
+% -Matrix
+\DeclareMathOperator{\Vander}{V}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Mat}{Mat}
+\DeclareMathOperator{\rg}{rg}
+\DeclareMathOperator{\TrM}{Tr}
+\DeclareMathOperator{\coM}{co}
+\DeclareMathOperator{\Spect}{Sp}
+
+% -Probability
+\DeclareMathOperator{\Prob}{\mathbb{P}}
+\DeclareMathOperator{\Ind}{Ind}
+\DeclareMathOperator{\Jacobien}{Jac}
+\DeclareMathOperator{\Var}{\mathbb{V}}
+\DeclareMathOperator{\covar}{Cov}
+\DeclareMathOperator{\Esp}{\mathbb{E}}
+
+% -other
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\degr}{d^\circ}
+
+% Macros
+% -general purpose
+\newcommand{\ie}{\text{ie. }}
+\newcommand{\car}[1]{\text{, car $#1$}}
+\newcommand{\ssi}{si, et seulement si,\xspace}
+\newcommand{\eqname}[1][E]{(#1)\text{ }}
+\newcommand{\im}{\mathfrak{i}}
+
+% -limits
+\newcommand{\simto}[1][]{\underset{#1}{\sim}}
+\newcommand{\tendsto}[2]{\xrightarrow[#1\to{#2}]{}}
+\newcommand{\nottendsto}[2]{\not\xrightarrow[#1\to{#2}]{}}
+
+% -differentials &co
+\newcommand{\derive}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
+\newcommand{\bigderive}[2]{\frac{\mathrm{d}}{\mathrm{d}#2}\left(#1\right)}
+\newcommand{\ddtn}[2]{\deriven{#1}{#2}{t}}
+\newcommand{\deriven}[3]{\frac{\mathrm{d}^{#1}#2}{\mathrm{d}#3^{#1}}}
+\newcommand{\bigderiven}[3]{\frac{\mathrm{d}^{#1}}{\mathrm{d}#3^{#1}}\left(#2\right)}
+
+% -letters shortcuts
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\Pre}{\mathcal{P}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\sL}{\mathbb{L}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Cont}{\mathscr{C}}
+\newcommand{\Deriv}{\mathscr{D}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\U}{\mathbb{U}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\Lin}{\mathscr{L}}
+\newcommand{\M}{\mathscr{M}}
+
+% -intervalles
+\newcommand{\intervalle}[4]{\left#1{}#2\mathpunct{};#3\right#4}
+\newcommand{\intervalleff}[2]{\intervalle{[}{#1}{#2}{]}}
+\newcommand{\intervalleof}[2]{\intervalle{]}{#1}{#2}{]}}
+\newcommand{\intervallefo}[2]{\intervalle{[}{#1}{#2}{[}}
+\newcommand{\intervalleoo}[2]{\intervalle{]}{#1}{#2}{[}}
+\newcommand{\intervalleiff}[2]{\intervalle{\llbracket}{#1}{#2}{\rrbracket}}
+\newcommand{\intervalleiof}[2]{\intervalle{\rrbracket}{#1}{#2}{\rrbracket}}
+\newcommand{\intervalleifo}[2]{\intervalle{\llbracket}{#1}{#2}{\llbracket}}
+\newcommand{\intervalleioo}[2]{\intervalle{\rrbracket}{#1}{#2}{\llbracket}}
+
+% -floor
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+
+% -algebra
+\newcommand{\transpose}[1]{#1^\mathsf{T}}
+\newcommand{\sev}{sev\xspace}
+\newcommand{\ev}{ev\xspace}
+\newcommand{\pscal}[2]{\left<#1,#2\right>}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+% -eq env
+\def\eq{\list{}{\leftmargin=15pt}\item[]\noindent{}}
+\let\endeq=\endlist
+
