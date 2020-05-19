@@ -3,45 +3,98 @@
 
 
 \RequirePackage{mdframed}
-\RequirePackage[overload]{empheq}
-\RequirePackage{./custom_maths}
+%\RequirePackage[overload]{empheq}
+\RequirePackage{custom_maths}
 
-\newenvironment{cLineBlock}[2][]
-{\mdfsetup{
-		frametitle={\colorbox{white}{\space\ifstrempty{#2}{#1}{#1:~\textmd{#2}}\space}},
-		linecolor=black,
-		topline=false, bottomline=false, rightline=false,
-		innertopmargin=\innertopmarginbox,
-		frametitleaboveskip=-\ht\strutbox,
-		frametitlealignment=\raggedright
-	}
-	\begin{mdframed}%
-	}
-	{\end{mdframed}}
+\RequirePackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
 
-\newenvironment{cFramedBlock}[2][]
-{\mdfsetup{
-		frametitle={\colorbox{white}{\space\ifstrempty{#2}{#1}{#1:~\textmd{#2}}\space}},
-		linecolor=black,
-		innertopmargin=\innertopmarginbox,
-		frametitleaboveskip=-\ht\strutbox,
-		frametitlealignment=\raggedright,
-		nobreak=true
-	}
-	\begin{mdframed}%
+\newcommand{\innerbottommargin}{10pt}
+
+\mdfdefinestyle{BlockStyle}{%
+	linecolor=black,
+	innerbottommargin=\innerbottommargin,
+	frametitleaboveskip=-\ht\strutbox,
+	frametitlealignment=\raggedright,
+	nobreak=true}
+
+\mdfdefinestyle{LineStyle}{%
+	linecolor=black,
+	topline=false, bottomline=false, rightline=false,
+	innerbottommargin=\innerbottommargin,
+	frametitleaboveskip=-\ht\strutbox,
+	frametitlealignment=\raggedright,
+	nobreak=true}
+
+\newenvironment{cLineBlock}[3][]{
+	\begin{mdframed}[
+		style=LineStyle,
+		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2~:~\textmd{#3}}\space}},#1]%
 	}
     {\end{mdframed}}
 
-\newenvironment{cSmallLineBlock}[1][]
-{\mdfsetup{
-		frametitle={\colorbox{white}{\space\ifstrempty{#1}{Démonstration}{Démonstration:~\textmd{#1}}\space}},
-		linecolor=black,
-		topline=false, bottomline=false, rightline=false,
-		innertopmargin=5pt,
-		frametitleaboveskip=-\ht\strutbox,
-		frametitlealignment=\raggedright
+\newenvironment{cFramedBlock}[3][]{
+	\begin{mdframed}[
+		style=BlockStyle,
+		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2~:~\textmd{#3}}\space}},#1]%
 	}
+    {\end{mdframed}}
+
+\newenvironment{cSmallLineBlock}[3][]{%
 	\begin{footnotesize}\begin{itemize}
-		\item[]\begin{mdframed}%
+		\item[]%
+			\begin{mdframed}[
+				style=LineStyle,
+				frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2~:~\textmd{#3}}\space}},#1]%
 	}
-	{\end{mdframed}\end{itemize}\end{footnotesize}}
+    {\end{mdframed}\end{itemize}\end{footnotesize}}
+
+\newcounter{ContentCounter}
+\counterwithin{ContentCounter}{section}
+\counterwithin{ContentCounter}{subsection}
+
+\newcommand{\mtheorem}[4][]{ % param, name, labelname, content
+	\refstepcounter{ContentCounter}\label{th:#3}%
+	\begin{cFramedBlock}[#1]{Théorème \theContentCounter}{#2}
+		#4
+	\end{cFramedBlock}
+}
+
+\newcommand{\mprop}[4][]{ % param, name, labelname, content
+	\refstepcounter{ContentCounter}\label{prp:#3}%
+	\begin{cFramedBlock}[#1]{Propriété \theContentCounter}{#2}
+		#4
+	\end{cFramedBlock}
+}
+
+\newcommand{\mdef}[4][]{ % param, name, labelname, content
+	\refstepcounter{ContentCounter}\label{def:#3}%
+	\begin{cFramedBlock}[#1]{Défintion \theContentCounter}{#2}
+		#4
+	\end{cFramedBlock}
+}
+
+\newcommand{\mrmq}[4][]{ % param, name, labelname, content
+	\refstepcounter{ContentCounter}\label{rmq:#3}%
+	\begin{cLineBlock}[#1]{Remarque \theContentCounter}{#2}
+		#4
+	\end{cLineBlock}
+}
+
+\newcommand{\mexpl}[4][]{ % param, name, labelname, content
+	\refstepcounter{ContentCounter}\label{expl:#3}%
+	\begin{cLineBlock}[#1]{\'Exemple \theContentCounter}{#2}
+		#4
+	\end{cLineBlock}
+}
+
+\newcommand{\mdemo}[3][]{ % param, labelref, content
+	\begin{cSmallLineBlock}[#1]{Démonstration}{\ref{#2}}
+		#3
+	\end{cSmallLineBlock}
+}
