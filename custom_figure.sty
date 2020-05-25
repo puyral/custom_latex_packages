@@ -1,19 +1,24 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{custom_figure}
 
-\RequirePackage{
-    pst-eucl,
-    pst-3dplot,
-    pst-grad,
-    pst-plot,
-    pst-math,
-    pstricks-add,
-    pst-all,
-    tikz,
-    pgfplots,
-    pgfplotstable,
-    dot2texi,
-    qcircuit
+\RequirePackage{%
+    pst-eucl,%
+    pst-3dplot,%
+    pst-grad,%
+    pst-plot,%
+    pst-math,%
+    pstricks-add,%
+    pst-all,%
+    tikz,%
+    pgfplots,%
+    pgfplotstable,%
+    dot2texi,%
+    qcircuit%
 }
 \RequirePackage[compatibility,european]{circuitikz}
+
+%pgfplot
 \pgfplotsset{compat=1.5}
+
+% graphviz
+\usetikzlibrary{shapes,arrows}

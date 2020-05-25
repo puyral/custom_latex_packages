@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{custom_fiche}
 
+\RequirePackage{translations}
 
 \RequirePackage{mdframed}
 %\RequirePackage[overload]{empheq}
@@ -9,10 +10,13 @@
 \RequirePackage{hyperref}
 \hypersetup{
     colorlinks=true,
-    linkcolor=blue,
+    linkcolor=black,
     filecolor=magenta,      
     urlcolor=cyan,
 }
+
+\RequirePackage{enumitem}
+\setlist[enumerate,1]{label={(\roman*)}}
 
 \newcommand{\innerbottommargin}{10pt}
 
@@ -58,43 +62,80 @@
 \counterwithin{ContentCounter}{section}
 \counterwithin{ContentCounter}{subsection}
 
+\DeclareTranslationFallback{Défintion}{Défintion}
+\DeclareTranslationFallback{Théorème}{Théorème}
+\DeclareTranslationFallback{Lemme}{Lemme}
+\DeclareTranslationFallback{Corollaire}{Corollaire}
+\DeclareTranslationFallback{Exemple}{Exemple}
+\DeclareTranslationFallback{Propriété}{Propriété}
+\DeclareTranslationFallback{Démonstration}{Démonstration}
+\DeclareTranslationFallback{Remarque}{Remarque}
+
+\DeclareTranslation{English}{Défintion}{Defintion}
+\DeclareTranslation{English}{Théorème}{Theorem}
+\DeclareTranslation{English}{Lemme}{Lemma}
+\DeclareTranslation{English}{Corollaire}{Corollary}
+\DeclareTranslation{English}{Exemple}{Example}
+\DeclareTranslation{English}{Propriété}{Proprety}
+\DeclareTranslation{English}{Démonstration}{Proof}
+\DeclareTranslation{English}{Remarque}{Note}
+
+
+\@ifpackageloaded{babel}{%
+
+}
+
 \newcommand{\mtheorem}[4][]{ % param, name, labelname, content
-	\refstepcounter{ContentCounter}\label{th:#3}%
-	\begin{cFramedBlock}[#1]{Théorème \theContentCounter}{#2}
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{th:#3}}%
+	\begin{cFramedBlock}[#1]{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+		#4
+	\end{cFramedBlock}
+}
+
+\newcommand{\mlemme}[4][]{ % param, name, labelname, content
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{lemme:#3}}%
+	\begin{cFramedBlock}[#1]{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+		#4
+	\end{cFramedBlock}
+}
+
+\newcommand{\mcor}[4][]{ % param, name, labelname, content
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{cor:#3}}%
+	\begin{cFramedBlock}[#1]{\GetTranslation{Corrolaire}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mprop}[4][]{ % param, name, labelname, content
-	\refstepcounter{ContentCounter}\label{prp:#3}%
-	\begin{cFramedBlock}[#1]{Propriété \theContentCounter}{#2}
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{prop:#3}}%
+	\begin{cFramedBlock}[#1]{\GetTranslation{Propriété}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mdef}[4][]{ % param, name, labelname, content
-	\refstepcounter{ContentCounter}\label{def:#3}%
-	\begin{cFramedBlock}[#1]{Défintion \theContentCounter}{#2}
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
+	\begin{cFramedBlock}[#1]{\GetTranslation{Défintion}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mrmq}[4][]{ % param, name, labelname, content
-	\refstepcounter{ContentCounter}\label{rmq:#3}%
-	\begin{cLineBlock}[#1]{Remarque \theContentCounter}{#2}
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{rmq:#3}}%
+	\begin{cLineBlock}[#1]{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
 		#4
 	\end{cLineBlock}
 }
 
 \newcommand{\mexpl}[4][]{ % param, name, labelname, content
-	\refstepcounter{ContentCounter}\label{expl:#3}%
-	\begin{cLineBlock}[#1]{\'Exemple \theContentCounter}{#2}
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{expl:#3}}%
+	\begin{cLineBlock}[#1]{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
 		#4
 	\end{cLineBlock}
 }
 
 \newcommand{\mdemo}[3][]{ % param, labelref, content
-	\begin{cSmallLineBlock}[#1]{Démonstration}{\ref{#2}}
+	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}}{\ref{#2}}
 		#3
 	\end{cSmallLineBlock}
 }
