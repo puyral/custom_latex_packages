@@ -15,10 +15,19 @@
     urlcolor=cyan,
 }
 
+\newcommand{\hyperrefifdefined}[2]{%
+	\@ifundefined{r@#1}{%
+		#2%
+	}{%
+		\hyperref[#1]{#2}%
+	}%
+}
+
 \RequirePackage{enumitem}
 \setlist[enumerate,1]{label={(\roman*)}}
 
 \newcommand{\innerbottommargin}{10pt}
+\newcommand{\mvspace}{\vspace*{-13pt}}
 
 \mdfdefinestyle{BlockStyle}{%
 	linecolor=black,
@@ -87,55 +96,60 @@
 
 \newcommand{\mtheorem}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{th:#3}}%
-	\begin{cFramedBlock}[#1]{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:th:#3}{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mlemme}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{lemme:#3}}%
-	\begin{cFramedBlock}[#1]{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:lemme:#3}{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mcor}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{cor:#3}}%
-	\begin{cFramedBlock}[#1]{\GetTranslation{Corrolaire}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:cor:#3}{\GetTranslation{Corollaire}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mprop}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{prop:#3}}%
-	\begin{cFramedBlock}[#1]{\GetTranslation{Propriété}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cFramedBlock}[#1]{%
+		\hyperrefifdefined{demo:prop:#3}{%
+			\GetTranslation{Propriété}\ifstrempty{#3}{}{ \theContentCounter}%
+		}%
+	}{#2}%
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mdef}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
-	\begin{cFramedBlock}[#1]{\GetTranslation{Défintion}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Défintion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 		#4
 	\end{cFramedBlock}
 }
 
 \newcommand{\mrmq}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{rmq:#3}}%
-	\begin{cLineBlock}[#1]{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:rmq:#3}{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 		#4
 	\end{cLineBlock}
 }
 
 \newcommand{\mexpl}[4][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{expl:#3}}%
-	\begin{cLineBlock}[#1]{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}{#2}
+	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:expl:#3}{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 		#4
 	\end{cLineBlock}
 }
 
 \newcommand{\mdemo}[3][]{ % param, labelref, content
-	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}}{\ref{#2}}
+	\ifstrempty{#2}{}{\label{demo:#2}}%
+	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \ref{#2}}}{}
 		#3
 	\end{cSmallLineBlock}
 }
