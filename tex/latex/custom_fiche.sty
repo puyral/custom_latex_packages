@@ -15,7 +15,7 @@
     urlcolor=cyan,
 }
 
-\newcommand{\hyperrefifdefined}[2]{%
+\newcommand{\hyperrefifdefined}[2]{% make an hyperref if the label is defined, otherwise just print the text
 	\@ifundefined{r@#1}{%
 		#2%
 	}{%

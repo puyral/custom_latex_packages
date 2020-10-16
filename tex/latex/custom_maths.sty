@@ -4,6 +4,10 @@
 
 
 % DeclareMathOperator
+% -Min Max
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
 % -Trigo
 \DeclareMathOperator{\argsh}{argsh}
 \DeclareMathOperator{\argch}{argch}
@@ -17,8 +21,8 @@
 \DeclareMathOperator{\arccotan}{arccotan}
 
 % -Sets
-\DeclareMathOperator{\Card}{Card}
 \DeclareMathOperator{\ParE}{\mathcal{P}}
+\newcommand{\card}[1]{\left\vert #1 \right\vert}
 
 % -Linear Algebra
 \DeclareMathOperator{\Ker}{Ker}
@@ -57,12 +61,17 @@
 \newcommand{\ssi}{si, et seulement si,\xspace}
 \newcommand{\eqname}[1][E]{(#1)\text{ }}
 \newcommand{\im}{\mathfrak{i}}
-\newcommand{\LASSE}{Les assertions suivantes sont équivalentes~:}
+\newcommand{\LASSE}{Les assertions suivantes sont équivalentes:}
 
 % -limits
 \newcommand{\simto}[1][]{\underset{#1}{\sim}}
 \newcommand{\tendsto}[2]{\xrightarrow[#1\to{#2}]{}}
 \newcommand{\nottendsto}[2]{\not\xrightarrow[#1\to{#2}]{}}
+
+% -sequences
+\newcommand{\mseqFE}[3]{\left({#1}_{#2}\right)_{#3}}
+\newcommand{\mseqF}[3]{\mseqFE{#1}{#2}{#2 \in #3}}
+\newcommand{\mseq}[2]{\mseqF{#1}{#2}{\N}}
 
 % -differentials &co
 \newcommand{\derive}[2]{\frac{\mathrm{d}#1}{\mathrm{d}#2}}
@@ -114,6 +123,6 @@
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 % -eq env
-\def\eq{\list{}{\leftmargin=15pt}\item[]\noindent{}}
+\def\eq{\list{}{\leftmargin=25pt}\item[]\noindent{}}
 \let\endeq=\endlist
 
