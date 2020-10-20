@@ -69,8 +69,8 @@
 \newcommand{\nottendsto}[2]{\not\xrightarrow[#1\to{#2}]{}}
 
 % -sequences
-\newcommand{\mseqFE}[3]{\left({#1}_{#2}\right)_{#3}}
-\newcommand{\mseqF}[3]{\mseqFE{#1}{#2}{#2 \in #3}}
+\newcommand{\mseqFE}[2]{\left(#1\right)_{#2}}
+\newcommand{\mseqF}[3]{\mseqFE{{#1}_{#2}}{#2 \in #3}}
 \newcommand{\mseq}[2]{\mseqF{#1}{#2}{\N}}
 
 % -differentials &co
