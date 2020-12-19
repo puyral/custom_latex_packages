@@ -29,6 +29,7 @@
 \DeclareMathOperator{\Img}{Im}
 \DeclareMathOperator{\carA}{car}
 \DeclareMathOperator*{\Vect}{Vect}
+\DeclareMathOperator{\lspan}{span}
 \DeclareMathOperator{\Iso}{Iso}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\Id}{Id}
@@ -57,7 +58,7 @@
 % Macros
 % -general purpose
 \newcommand{\ie}{\text{ie. }}
-\newcommand{\car}[1]{\text{, car $#1$}}
+\newcommand{\car}[1]{\text{, car $ #1 $}}
 \newcommand{\ssi}{si, et seulement si,\xspace}
 \newcommand{\eqname}[1][E]{(#1)\text{ }}
 \newcommand{\im}{\mathfrak{i}}
@@ -122,7 +123,23 @@
 \newcommand{\pscal}[2]{\left<#1,#2\right>}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
+% -define function
+\newcommand{\bigFun}[4]{%
+    \left(\begin{aligned}
+        #1 &\longrightarrow #2\\
+        #3 &\longmapsto #4
+    \end{aligned}\right)}
+
 % -eq env
-\def\eq{\list{}{\leftmargin=25pt}\item[]\noindent{}}
+\newcommand{\eqEnvSkipSize}{15pt}
+\def\eq{\list{}{\leftmargin=\eqEnvSkipSize}\item[]\noindent{}}
 \let\endeq=\endlist
 
+% -restriction
+% https://tex.stackexchange.com/questions/22252/how-to-typeset-function-restrictions
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
