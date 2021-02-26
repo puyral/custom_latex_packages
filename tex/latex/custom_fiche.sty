@@ -73,6 +73,10 @@
 \counterwithin{ContentCounter}{section}
 \counterwithin{ContentCounter}{subsection}
 
+\newcounter{ExercicesCounter}
+\counterwithin{ExercicesCounter}{section}
+\counterwithin{ExercicesCounter}{subsection}
+
 \DeclareTranslationFallback{Définition}{Définition}
 \DeclareTranslationFallback{Théorème}{Théorème}
 \DeclareTranslationFallback{Lemme}{Lemme}
@@ -80,9 +84,12 @@
 \DeclareTranslationFallback{Exemple}{Exemple}
 \DeclareTranslationFallback{Propriété}{Propriété}
 \DeclareTranslationFallback{Démonstration}{Démonstration}
+\DeclareTranslationFallback{de_demo}{de}
 \DeclareTranslationFallback{Remarque}{Remarque}
 \DeclareTranslationFallback{Exercice}{Exercice}
 \DeclareTranslationFallback{Correction}{Correction}
+\DeclareTranslationFallback{Rappel}{Rappel}
+\DeclareTranslationFallback{Notation}{Notation}
 
 \DeclareTranslation{English}{Définition}{Definition}
 \DeclareTranslation{English}{Théorème}{Theorem}
@@ -91,9 +98,12 @@
 \DeclareTranslation{English}{Exemple}{Example}
 \DeclareTranslation{English}{Propriété}{Proposition}
 \DeclareTranslation{English}{Démonstration}{Proof}
+\DeclareTranslation{English}{de_demo}{of}
 \DeclareTranslation{English}{Remarque}{Remark}
 \DeclareTranslation{English}{Exercice}{Exercise}
 \DeclareTranslation{English}{Correction}{Correction}
+\DeclareTranslation{English}{Rappel}{Reminder}
+\DeclareTranslation{English}{Notation}{Notation}
 
 
 \@ifpackageloaded{babel}{%
@@ -156,24 +166,40 @@
 
 \newenvironment{mdemoenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{demo:#2}}%
-	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \ref{#2}}}{}%
+	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \ref{#2}}}{}%
 }{%
 	\end{cSmallLineBlock}
 }
 
 \newenvironment{mexoenv}[3][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{exo:#3}}%
-	\begin{cLineBlock}[#1]{\hyperrefifdefined{correction:exo:#3}{\GetTranslation{Exercice}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+\ifstrempty{#3}{}{\refstepcounter{ExercicesCounter}\label{exo:#3}}%
+\begin{footnotesize}\begin{cLineBlock}[#1]{\hyperrefifdefined{correction:exo:#3}{\GetTranslation{Exercice}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
 }{%
-	\end{cLineBlock}
+	\end{cLineBlock}\end{footnotesize}
 }
 
 \newenvironment{mcorrectionenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{correction:#2}}%
-	\begin{cSmallLineBlock}[#1]{\GetTranslation{Correction}\ifstrempty{#2}{}{ \ref{#2}}}{}%
+	\begin{footnotesize}\begin{cLineBlock}[#1]{\GetTranslation{Correction}\ifstrempty{#2}{}{ \ref{#2}}}{}%
 }{%
-	\end{cSmallLineBlock}
+	\end{cLineBlock}\end{footnotesize}
 }
+
+\newenvironment{mrappelenv}[3][]{%
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{reminder:#3}}%
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:reminder:#3}{\GetTranslation{Rappel}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+}{%
+\end{cFramedBlock}
+}
+
+\newenvironment{mnotationenv}[3][]{%
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{notation:#3}}%
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:notation:#3}{\GetTranslation{Notaion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+}{%
+\end{cFramedBlock}
+}
+
+
 
 
 
