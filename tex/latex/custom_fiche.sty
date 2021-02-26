@@ -5,7 +5,7 @@
 
 \RequirePackage{mdframed}
 %\RequirePackage[overload]{empheq}
-\RequirePackage{custom_maths}
+%\RequirePackage{custom_maths}
 
 \RequirePackage{hyperref}
 \hypersetup{
@@ -28,6 +28,8 @@
 
 \newcommand{\innerbottommargin}{10pt}
 \newcommand{\mvspace}{\vspace*{-13pt}}
+
+\mdfsetup{skipabove=2pt,skipbelow=0.5em}
 
 \mdfdefinestyle{BlockStyle}{%
 	linecolor=black,
@@ -79,6 +81,8 @@
 \DeclareTranslationFallback{Propriété}{Propriété}
 \DeclareTranslationFallback{Démonstration}{Démonstration}
 \DeclareTranslationFallback{Remarque}{Remarque}
+\DeclareTranslationFallback{Exercice}{Exercice}
+\DeclareTranslationFallback{Correction}{Correction}
 
 \DeclareTranslation{English}{Défintion}{Defintion}
 \DeclareTranslation{English}{Théorème}{Theorem}
@@ -88,68 +92,135 @@
 \DeclareTranslation{English}{Propriété}{Proprety}
 \DeclareTranslation{English}{Démonstration}{Proof}
 \DeclareTranslation{English}{Remarque}{Note}
+\DeclareTranslation{English}{Exercice}{Exercise}
+\DeclareTranslation{English}{Correction}{Correction}
 
 
 \@ifpackageloaded{babel}{%
 
 }
 
-\newcommand{\mtheorem}[4][]{ % param, name, labelname, content
+\newenvironment{mtheoremenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{th:#3}}%
-	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:th:#3}{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
-		#4
-	\end{cFramedBlock}
+\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:th:#3}{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+}{%
+\end{cFramedBlock}%
 }
 
-\newcommand{\mlemme}[4][]{ % param, name, labelname, content
+\newenvironment{mdefenv}[3][]{%
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Défintion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+}{%
+\end{cFramedBlock}
+}
+
+\newenvironment{mlemmeenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{lemme:#3}}%
-	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:lemme:#3}{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
-		#4
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:lemme:#3}{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+}{%
 	\end{cFramedBlock}
 }
 
-\newcommand{\mcor}[4][]{ % param, name, labelname, content
+\newenvironment{mcorenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{cor:#3}}%
-	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:cor:#3}{\GetTranslation{Corollaire}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
-		#4
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:cor:#3}{\GetTranslation{Corollaire}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+}{%
 	\end{cFramedBlock}
 }
 
-\newcommand{\mprop}[4][]{ % param, name, labelname, content
+\newenvironment{mpropenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{prop:#3}}%
 	\begin{cFramedBlock}[#1]{%
 		\hyperrefifdefined{demo:prop:#3}{%
 			\GetTranslation{Propriété}\ifstrempty{#3}{}{ \theContentCounter}%
 		}%
 	}{#2}%
-		#4
+}{%
 	\end{cFramedBlock}
+}
+
+
+\newenvironment{mrmqenv}[3][]{ % param, name, labelname, content
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{rmq:#3}}%
+	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:rmq:#3}{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+}{%
+	\end{cLineBlock}
+}
+
+\newenvironment{mexplenv}[3][]{ % param, name, labelname, content
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{expl:#3}}%
+	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:expl:#3}{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+}{%
+	\end{cLineBlock}
+}
+
+\newenvironment{mdemoenv}[2][]{ % param, labelref, content
+	\ifstrempty{#2}{}{\label{demo:#2}}%
+	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \ref{#2}}}{}%
+}{%
+	\end{cSmallLineBlock}
+}
+
+\newenvironment{mexoenv}[3][]{ % param, name, labelname, content
+\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{exo:#3}}%
+	\begin{cLineBlock}[#1]{\hyperrefifdefined{correction:exo:#3}{\GetTranslation{Exercice}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+}{%
+	\end{cLineBlock}
+}
+
+\newenvironment{mcorrectionenv}[2][]{ % param, labelref, content
+	\ifstrempty{#2}{}{\label{correction:#2}}%
+	\begin{cSmallLineBlock}[#1]{\GetTranslation{Correction}\ifstrempty{#2}{}{ \ref{#2}}}{}%
+}{%
+	\end{cSmallLineBlock}
+}
+
+
+
+\newcommand{\mtheorem}[4][]{ % param, name, labelname, content
+\begin{mtheoremenv}[#1]{#2}{#3}%
+	#4%
+\end{mtheoremenv}%
+}
+
+\newcommand{\mlemme}[4][]{ % param, name, labelname, content
+\begin{mlemmeenv}[#1]{#2}{#3}%
+	#4%
+\end{mlemmeenv}%
+}
+
+\newcommand{\mcor}[4][]{ % param, name, labelname, content
+\begin{mcorenv}[#1]{#2}{#3}%
+	#4%
+\end{mcorenv}%
+}
+
+\newcommand{\mprop}[4][]{ % param, name, labelname, content
+\begin{mpropenv}[#1]{#2}{#3}%
+	#4%
+\end{mpropenv}%
 }
 
 \newcommand{\mdef}[4][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
-	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Défintion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
-		#4
-	\end{cFramedBlock}
+\begin{mdefenv}[#1]{#2}{#3}%
+	#4%
+\end{mdefenv}%
 }
 
 \newcommand{\mrmq}[4][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{rmq:#3}}%
-	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:rmq:#3}{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
-		#4
-	\end{cLineBlock}
+\begin{mrmqenv}[#1]{#2}{#3}%
+	#4%
+\end{mrmqenv}%
 }
 
 \newcommand{\mexpl}[4][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{expl:#3}}%
-	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:expl:#3}{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
-		#4
-	\end{cLineBlock}
+\begin{mexplenv}[#1]{#2}{#3}%
+	#4%
+\end{mexplenv}%
 }
 
 \newcommand{\mdemo}[3][]{ % param, labelref, content
-	\ifstrempty{#2}{}{\label{demo:#2}}%
-	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \ref{#2}}}{}
-		#3
-	\end{cSmallLineBlock}
+\begin{mdemoenv}[#1]{#2}%
+	#4%
+\end{mdemoenv}%
 }

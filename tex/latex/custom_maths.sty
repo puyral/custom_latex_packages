@@ -1,6 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{custom_maths}
 \RequirePackage{amsthm,amsmath,amssymb,mathrsfs,stmaryrd,amsbsy,mathtools}
+%\RequirePackage{Hendrik-widebar}
 
 
 % DeclareMathOperator
@@ -22,14 +23,14 @@
 
 % -Sets
 \DeclareMathOperator{\ParE}{\mathcal{P}}
-\newcommand{\card}[1]{\left\vert #1 \right\vert}
+\newcommand{\card}[1]{\mathrm{Card}\left( #1 \right)}
 
 % -Linear Algebra
 \DeclareMathOperator{\Ker}{Ker}
 \DeclareMathOperator{\Img}{Im}
 \DeclareMathOperator{\carA}{car}
 \DeclareMathOperator*{\Vect}{Vect}
-\DeclareMathOperator{\lspan}{span}
+\DeclareMathOperator*{\lspan}{span}
 \DeclareMathOperator{\Iso}{Iso}
 \DeclareMathOperator{\GL}{GL}
 \DeclareMathOperator{\Id}{Id}
@@ -122,6 +123,7 @@
 \newcommand{\ev}{ev\xspace}
 \newcommand{\pscal}[2]{\left<#1,#2\right>}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\adher}[1]{\overline{#1}}
 
 % -define function
 \newcommand{\bigFun}[4]{%
