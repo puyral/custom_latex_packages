@@ -73,7 +73,7 @@
 \counterwithin{ContentCounter}{section}
 \counterwithin{ContentCounter}{subsection}
 
-\DeclareTranslationFallback{Défintion}{Défintion}
+\DeclareTranslationFallback{Définition}{Définition}
 \DeclareTranslationFallback{Théorème}{Théorème}
 \DeclareTranslationFallback{Lemme}{Lemme}
 \DeclareTranslationFallback{Corollaire}{Corollaire}
@@ -84,14 +84,14 @@
 \DeclareTranslationFallback{Exercice}{Exercice}
 \DeclareTranslationFallback{Correction}{Correction}
 
-\DeclareTranslation{English}{Défintion}{Defintion}
+\DeclareTranslation{English}{Définition}{Definition}
 \DeclareTranslation{English}{Théorème}{Theorem}
 \DeclareTranslation{English}{Lemme}{Lemma}
 \DeclareTranslation{English}{Corollaire}{Corollary}
 \DeclareTranslation{English}{Exemple}{Example}
-\DeclareTranslation{English}{Propriété}{Proprety}
+\DeclareTranslation{English}{Propriété}{Proposition}
 \DeclareTranslation{English}{Démonstration}{Proof}
-\DeclareTranslation{English}{Remarque}{Note}
+\DeclareTranslation{English}{Remarque}{Remark}
 \DeclareTranslation{English}{Exercice}{Exercise}
 \DeclareTranslation{English}{Correction}{Correction}
 
@@ -109,7 +109,7 @@
 
 \newenvironment{mdefenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
-	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Défintion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Définition}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 }{%
 \end{cFramedBlock}
 }
@@ -221,6 +221,6 @@
 
 \newcommand{\mdemo}[3][]{ % param, labelref, content
 \begin{mdemoenv}[#1]{#2}%
-	#4%
+	#3%
 \end{mdemoenv}%
 }
