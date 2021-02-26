@@ -27,10 +27,12 @@
 \setlist[enumerate,1]{label={(\roman*)}}
 
 \newcommand{\innerbottommargin}{10pt}
-\newcommand{\mvspace}{\vspace*{-13pt}}
+\newcommand{\mvspace}{\vspace*{-13pt}} % Pour réduire l'espace en cas de maths
 
+% -- setup de mdframe
 \mdfsetup{skipabove=2pt,skipbelow=0.5em}
 
+% - styles
 \mdfdefinestyle{BlockStyle}{%
 	linecolor=black,
 	innerbottommargin=\innerbottommargin,
@@ -46,6 +48,7 @@
 	frametitlealignment=\raggedright,
 	nobreak=true}
 
+% - environements utilisants les styles
 \newenvironment{cLineBlock}[3][]{
 	\begin{mdframed}[
 		style=LineStyle,
@@ -69,6 +72,7 @@
 	}
     {\end{mdframed}\end{itemize}\end{footnotesize}}
 
+% -- compteurs
 \newcounter{ContentCounter}
 \counterwithin{ContentCounter}{section}
 \counterwithin{ContentCounter}{subsection}
@@ -77,6 +81,9 @@
 \counterwithin{ExercicesCounter}{section}
 \counterwithin{ExercicesCounter}{subsection}
 
+% -- traduction
+
+% Français
 \DeclareTranslationFallback{Définition}{Définition}
 \DeclareTranslationFallback{Théorème}{Théorème}
 \DeclareTranslationFallback{Lemme}{Lemme}
@@ -91,6 +98,7 @@
 \DeclareTranslationFallback{Rappel}{Rappel}
 \DeclareTranslationFallback{Notation}{Notation}
 
+% Anglais
 \DeclareTranslation{English}{Définition}{Definition}
 \DeclareTranslation{English}{Théorème}{Theorem}
 \DeclareTranslation{English}{Lemme}{Lemma}
@@ -110,6 +118,8 @@
 
 }
 
+% -- environements
+% Theorème
 \newenvironment{mtheoremenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{th:#3}}%
 \begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:th:#3}{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
@@ -117,6 +127,7 @@
 \end{cFramedBlock}%
 }
 
+% Définition
 \newenvironment{mdefenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Définition}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
@@ -124,6 +135,7 @@
 \end{cFramedBlock}
 }
 
+% Lemme
 \newenvironment{mlemmeenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{lemme:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:lemme:#3}{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
@@ -131,6 +143,7 @@
 	\end{cFramedBlock}
 }
 
+% Corollaire
 \newenvironment{mcorenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{cor:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:cor:#3}{\GetTranslation{Corollaire}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
@@ -138,6 +151,7 @@
 	\end{cFramedBlock}
 }
 
+% Propriété
 \newenvironment{mpropenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{prop:#3}}%
 	\begin{cFramedBlock}[#1]{%
@@ -149,7 +163,7 @@
 	\end{cFramedBlock}
 }
 
-
+% Remarque
 \newenvironment{mrmqenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{rmq:#3}}%
 	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:rmq:#3}{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
@@ -157,6 +171,7 @@
 	\end{cLineBlock}
 }
 
+% Exemple
 \newenvironment{mexplenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{expl:#3}}%
 	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:expl:#3}{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
@@ -164,6 +179,7 @@
 	\end{cLineBlock}
 }
 
+% Démonstration
 \newenvironment{mdemoenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{demo:#2}}%
 	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \ref{#2}}}{}%
@@ -171,6 +187,7 @@
 	\end{cSmallLineBlock}
 }
 
+% Exercice
 \newenvironment{mexoenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ExercicesCounter}\label{exo:#3}}%
 \begin{footnotesize}\begin{cLineBlock}[#1]{\hyperrefifdefined{correction:exo:#3}{\GetTranslation{Exercice}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
@@ -178,6 +195,7 @@
 	\end{cLineBlock}\end{footnotesize}
 }
 
+% Correction
 \newenvironment{mcorrectionenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{correction:#2}}%
 	\begin{footnotesize}\begin{cLineBlock}[#1]{\GetTranslation{Correction}\ifstrempty{#2}{}{ \ref{#2}}}{}%
@@ -185,6 +203,7 @@
 	\end{cLineBlock}\end{footnotesize}
 }
 
+% Rappel
 \newenvironment{mrappelenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{reminder:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:reminder:#3}{\GetTranslation{Rappel}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
@@ -192,6 +211,7 @@
 \end{cFramedBlock}
 }
 
+% Notaion
 \newenvironment{mnotationenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{notation:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:notation:#3}{\GetTranslation{Notaion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
@@ -201,50 +221,57 @@
 
 
 
-
-
+% -- one-liner
+% Théorème
 \newcommand{\mtheorem}[4][]{ % param, name, labelname, content
 \begin{mtheoremenv}[#1]{#2}{#3}%
 	#4%
 \end{mtheoremenv}%
 }
 
+% Lemme
 \newcommand{\mlemme}[4][]{ % param, name, labelname, content
 \begin{mlemmeenv}[#1]{#2}{#3}%
 	#4%
 \end{mlemmeenv}%
 }
 
+% Corollaire
 \newcommand{\mcor}[4][]{ % param, name, labelname, content
 \begin{mcorenv}[#1]{#2}{#3}%
 	#4%
 \end{mcorenv}%
 }
 
+% Propriété
 \newcommand{\mprop}[4][]{ % param, name, labelname, content
 \begin{mpropenv}[#1]{#2}{#3}%
 	#4%
 \end{mpropenv}%
 }
 
+% Définition
 \newcommand{\mdef}[4][]{ % param, name, labelname, content
 \begin{mdefenv}[#1]{#2}{#3}%
 	#4%
 \end{mdefenv}%
 }
 
+% Remarque
 \newcommand{\mrmq}[4][]{ % param, name, labelname, content
 \begin{mrmqenv}[#1]{#2}{#3}%
 	#4%
 \end{mrmqenv}%
 }
 
+% Exemple
 \newcommand{\mexpl}[4][]{ % param, name, labelname, content
 \begin{mexplenv}[#1]{#2}{#3}%
 	#4%
 \end{mexplenv}%
 }
 
+% Démonstration
 \newcommand{\mdemo}[3][]{ % param, labelref, content
 \begin{mdemoenv}[#1]{#2}%
 	#3%
