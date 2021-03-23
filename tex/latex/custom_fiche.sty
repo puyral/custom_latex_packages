@@ -52,14 +52,14 @@
 \newenvironment{cLineBlock}[3][]{
 	\begin{mdframed}[
 		style=LineStyle,
-		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2~:~\textmd{#3}}\space}},#1]%
+		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
 	}
     {\end{mdframed}}
 
 \newenvironment{cFramedBlock}[3][]{
 	\begin{mdframed}[
 		style=BlockStyle,
-		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2~:~\textmd{#3}}\space}},#1]%
+		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
 	}
     {\end{mdframed}}
 
@@ -68,7 +68,7 @@
 		\item[]%
 			\begin{mdframed}[
 				style=LineStyle,
-				frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2~:~\textmd{#3}}\space}},#1]%
+				frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
 	}
     {\end{mdframed}\end{itemize}\end{footnotesize}}
 
@@ -182,7 +182,7 @@
 % Démonstration
 \newenvironment{mdemoenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{demo:#2}}%
-	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \ref{#2}}}{}%
+	\begin{cSmallLineBlock}[nobreak=false,#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \ref{#2}}}{}%
 }{%
 	\end{cSmallLineBlock}
 }
@@ -190,7 +190,7 @@
 % Exercice
 \newenvironment{mexoenv}[3][]{ % param, name, labelname, content
 \ifstrempty{#3}{}{\refstepcounter{ExercicesCounter}\label{exo:#3}}%
-\begin{footnotesize}\begin{cLineBlock}[#1]{\hyperrefifdefined{correction:exo:#3}{\GetTranslation{Exercice}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
+\begin{footnotesize}\begin{cLineBlock}[#1]{\hyperrefifdefined{correction:exo:#3}{\GetTranslation{Exercice}\ifstrempty{#3}{}{ \theExercicesCounter}}}{#2}%
 }{%
 	\end{cLineBlock}\end{footnotesize}
 }
@@ -198,7 +198,7 @@
 % Correction
 \newenvironment{mcorrectionenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{correction:#2}}%
-	\begin{footnotesize}\begin{cLineBlock}[#1]{\GetTranslation{Correction}\ifstrempty{#2}{}{ \ref{#2}}}{}%
+	\begin{footnotesize}\begin{cLineBlock}[nobreak=false,#1]{\GetTranslation{Correction}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \ref{#2}}}{}%
 }{%
 	\end{cLineBlock}\end{footnotesize}
 }
