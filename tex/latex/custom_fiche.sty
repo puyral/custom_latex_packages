@@ -214,7 +214,7 @@
 % Notaion
 \newenvironment{mnotationenv}[3][]{%
 \ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{notation:#3}}%
-	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:notation:#3}{\GetTranslation{Notaion}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:notation:#3}{\GetTranslation{Notation}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 }{%
 \end{cFramedBlock}
 }
