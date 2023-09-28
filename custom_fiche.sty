@@ -77,6 +77,29 @@
 \counterwithin{ContentCounter}{section}
 \counterwithin{ContentCounter}{subsection}
 
+
+\newcounter{TheoremCounter}
+\newcounter{LemmaCounter}
+\newcounter{RemarkCounter}
+\newcounter{CorollaryCounter}
+\newcounter{DefinitionCounter}
+\newcounter{PropositionCounter}
+\newcounter{ExampleCounter}
+\newcounter{ReminderCounter}
+\newcounter{NotationCounter}
+
+% \makeatletter
+\let\c@TheoremCounter=\c@ContentCounter
+\let\c@LemmaCounter=\c@ContentCounter
+\let\c@RemarkCounter=\c@ContentCounter
+\let\c@CorollaryCounter=\c@ContentCounter
+\let\c@DefinitionCounter=\c@ContentCounter
+\let\c@PropositionCounter=\c@ContentCounter
+\let\c@ExampleCounter=\c@ContentCounter
+\let\c@ReminderCounter=\c@ContentCounter
+\let\c@NotationCounter=\c@ContentCounter
+% \makeatother
+
 \newcounter{ExercicesCounter}
 \counterwithin{ExercicesCounter}{section}
 \counterwithin{ExercicesCounter}{subsection}
@@ -118,10 +141,20 @@
 
 }
 
+\newcommand*{\DefinitionCounterautorefname}{Def.}
+\newcommand*{\TheoremCounterautorefname}{Th.}
+\newcommand*{\LemmaCounterautorefname}{\GetTranslation{Lemme}}
+\newcommand*{\RemarkCounterautorefname}{Rm.}
+\newcommand*{\CorollaryCounterautorefname}{Cor.}
+\newcommand*{\PropositionCounterautorefname}{Prop.}
+\newcommand*{\ExampleCounterautorefname}{Ex.}
+\newcommand*{\ReminderCounterautorefname}{\GetTranslation{Rappel}}
+\newcommand*{\NotationCounterautorefname}{\GetTranslation{Notation}}
+
 % -- environements
 % Theorème
 \newenvironment{mtheoremenv}[3][]{%
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{th:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{TheoremCounter}\label{th:#3}}%
 \begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:th:#3}{\GetTranslation{Théorème}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 }{%
 \end{cFramedBlock}%
@@ -129,7 +162,7 @@
 
 % Définition
 \newenvironment{mdefenv}[3][]{%
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{def:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{DefinitionCounter}\label{def:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:def:#3}{\GetTranslation{Définition}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 }{%
 \end{cFramedBlock}
@@ -137,7 +170,7 @@
 
 % Lemme
 \newenvironment{mlemmeenv}[3][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{lemme:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{LemmaCounter}\label{lemme:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:lemme:#3}{\GetTranslation{Lemme}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
 }{%
 	\end{cFramedBlock}
@@ -145,7 +178,7 @@
 
 % Corollaire
 \newenvironment{mcorenv}[3][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{cor:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{CorollaryCounter}\label{cor:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:cor:#3}{\GetTranslation{Corollaire}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
 }{%
 	\end{cFramedBlock}
@@ -153,7 +186,7 @@
 
 % Propriété
 \newenvironment{mpropenv}[3][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{prop:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{PropositionCounter}\label{prop:#3}}%
 	\begin{cFramedBlock}[#1]{%
 		\hyperrefifdefined{demo:prop:#3}{%
 			\GetTranslation{Propriété}\ifstrempty{#3}{}{ \theContentCounter}%
@@ -165,7 +198,7 @@
 
 % Remarque
 \newenvironment{mrmqenv}[3][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{rmq:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{RemarkCounter}\label{rmq:#3}}%
 	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:rmq:#3}{\GetTranslation{Remarque}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
 }{%
 	\end{cLineBlock}
@@ -173,7 +206,7 @@
 
 % Exemple
 \newenvironment{mexplenv}[3][]{ % param, name, labelname, content
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{expl:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{ExampleCounter}\label{expl:#3}}%
 	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:expl:#3}{\GetTranslation{Exemple}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}%
 }{%
 	\end{cLineBlock}
@@ -205,7 +238,7 @@
 
 % Rappel
 \newenvironment{mrappelenv}[3][]{%
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{reminder:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{ReminderCounter}\label{reminder:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:reminder:#3}{\GetTranslation{Rappel}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 }{%
 \end{cFramedBlock}
@@ -213,7 +246,7 @@
 
 % Notaion
 \newenvironment{mnotationenv}[3][]{%
-\ifstrempty{#3}{}{\refstepcounter{ContentCounter}\label{notation:#3}}%
+\ifstrempty{#3}{}{\refstepcounter{NotationCounter}\label{notation:#3}}%
 	\begin{cFramedBlock}[#1]{\hyperrefifdefined{demo:notation:#3}{\GetTranslation{Notation}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
 }{%
 \end{cFramedBlock}
