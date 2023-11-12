@@ -63,7 +63,12 @@
 \newcommand{\car}[1]{\text{, car $ #1 $}}
 \newcommand{\ssi}{si, et seulement si,\xspace}
 \newcommand{\eqname}[1][E]{(#1)\text{ }}
-\newcommand{\im}{\mathfrak{i}}
+\newcommand{\im}{%
+    \@ifpackageloaded{fontspec}{%
+        \newfontfamily\mmunicodemath{STIXGeneral}%
+        {\mmunicodemath 𝕚}%
+    }{\mathfrak{i}}%
+}
 \newcommand{\LASSE}{Les assertions suivantes sont équivalentes:}
 
 % -limits
