@@ -252,6 +252,14 @@
 \end{cFramedBlock}
 }
 
+% Notaion light
+\newenvironment{mnotationenv*}[3][]{%
+\ifstrempty{#3}{}{\refstepcounter{NotationCounter}\label{notation:#3}}%
+	\begin{cLineBlock}[#1]{\hyperrefifdefined{demo:notation:#3}{\GetTranslation{Notation}\ifstrempty{#3}{}{ \theContentCounter}}}{#2}
+}{%
+\end{cLineBlock}
+}
+
 
 
 % -- one-liner
