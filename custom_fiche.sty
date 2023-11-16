@@ -217,7 +217,7 @@
 	\ifstrempty{#2}{}{\label{demo:#2}}%
 	\begin{cSmallLineBlock}[nobreak=false,#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \autoref{#2}}}{}%
 }{%
-	\end{cSmallLineBlock}
+	\hfill\qed\end{cSmallLineBlock}
 }
 
 % Exercice
