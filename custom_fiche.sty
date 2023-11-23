@@ -3,9 +3,11 @@
 
 \RequirePackage{translations}
 
-\RequirePackage{mdframed}
+% \RequirePackage{mdframed}
 %\RequirePackage[overload]{empheq}
 %\RequirePackage{custom_maths}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{most}
 
 \RequirePackage{hyperref}
 \hypersetup{
@@ -26,51 +28,89 @@
 \RequirePackage{enumitem}
 \setlist[enumerate,1]{label={(\roman*)}}
 
-\newcommand{\innerbottommargin}{10pt}
+% \newcommand{\innerbottommargin}{10pt}
 \newcommand{\mvspace}{\vspace*{-13pt}} % Pour réduire l'espace en cas de maths
 
-% -- setup de mdframe
-\mdfsetup{skipabove=2pt,skipbelow=0.5em}
+% % -- setup de mdframe
+% \mdfsetup{skipabove=2pt,skipbelow=0.5em}
 
-% - styles
-\mdfdefinestyle{BlockStyle}{%
-	linecolor=black,
-	innerbottommargin=\innerbottommargin,
-	frametitleaboveskip=-\ht\strutbox,
-	frametitlealignment=\raggedright,
-	nobreak=true}
+% % - styles
+% \mdfdefinestyle{BlockStyle}{%
+% 	linecolor=black,
+% 	innerbottommargin=\innerbottommargin,
+% 	frametitleaboveskip=-\ht\strutbox,
+% 	frametitlealignment=\raggedright,
+% 	nobreak=true}
 
-\mdfdefinestyle{LineStyle}{%
-	linecolor=black,
-	topline=false, bottomline=false, rightline=false,
-	innerbottommargin=\innerbottommargin,
-	frametitleaboveskip=-\ht\strutbox,
-	frametitlealignment=\raggedright,
-	nobreak=true}
+% \mdfdefinestyle{LineStyle}{%
+% 	linecolor=black,
+% 	topline=false, bottomline=false, rightline=false,
+% 	innerbottommargin=\innerbottommargin,
+% 	frametitleaboveskip=-\ht\strutbox,
+% 	frametitlealignment=\raggedright,
+% 	nobreak=true}
+
+\newcommand{\boxrulewidth}{0.5pt}
+
+\tcbset{
+	mlinestyle/.style={
+		enhanced,
+		breakable,
+		empty,
+		sharp corners,
+		frame hidden,
+		borderline west={\boxrulewidth}{0pt}{black},
+		fonttitle=\bfseries\color{black},
+	}
+}
+
+\tcbset{
+	mboxstyle/.style={
+		enhanced,
+		% empty,
+		sharp corners,
+		colframe=black,
+		boxrule=\boxrulewidth,
+		colback=white,
+		% colbacktitle=white,
+		boxed title style={opacityback=0,colframe=white,size=fbox,arc=0mm},
+		attach boxed title to top left={yshift=-\tcboxedtitleheight/2,xshift=4mm},
+		top=\tcboxedtitleheight/2,
+		fonttitle=\bfseries\color{black},
+	}
+}
 
 % - environements utilisants les styles
 \newenvironment{cLineBlock}[3][]{
-	\begin{mdframed}[
-		style=LineStyle,
-		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
+	\begin{tcolorbox}[
+		mlinestyle,
+		title={\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space},#1]%
 	}
-    {\end{mdframed}}
+    {\end{tcolorbox}}
 
 \newenvironment{cFramedBlock}[3][]{
-	\begin{mdframed}[
-		style=BlockStyle,
-		frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
+	\begin{tcolorbox}[
+		mboxstyle,
+		title={\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space},#1]%
 	}
-    {\end{mdframed}}
+    {\end{tcolorbox}}
 
+% \newenvironment{cSmallLineBlock}[3][]{%
+% 	\begin{footnotesize}\begin{itemize}
+% 		\item[]%
+% 			\begin{mdframed}[
+% 				style=LineStyle,
+% 				frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
+% 	}
+%     {\end{mdframed}\end{itemize}\end{footnotesize}}
 \newenvironment{cSmallLineBlock}[3][]{%
-	\begin{footnotesize}\begin{itemize}
-		\item[]%
-			\begin{mdframed}[
-				style=LineStyle,
-				frametitle={\colorbox{white}{\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space}},#1]%
+	\begin{footnotesize}
+			\begin{tcolorbox}[
+				mlinestyle,
+				left skip=6mm,
+				title={\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space},#1]%
 	}
-    {\end{mdframed}\end{itemize}\end{footnotesize}}
+    {\end{tcolorbox}\end{footnotesize}}
 
 % -- compteurs
 \newcounter{ContentCounter}
@@ -215,7 +255,7 @@
 % Démonstration
 \newenvironment{mdemoenv}[2][]{ % param, labelref, content
 	\ifstrempty{#2}{}{\label{demo:#2}}%
-	\begin{cSmallLineBlock}[nobreak=false,#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \autoref{#2}}}{}%
+	\begin{cSmallLineBlock}[#1]{\GetTranslation{Démonstration}\ifstrempty{#2}{}{ \GetTranslation{de_demo} \autoref{#2}}}{}%
 }{%
 	\hfill\qed\end{cSmallLineBlock}
 }
