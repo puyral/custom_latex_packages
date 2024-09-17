@@ -64,10 +64,12 @@
 \newcommand{\ssi}{si, et seulement si,\xspace}
 \newcommand{\eqname}[1][E]{(#1)\text{ }}
 \newcommand{\im}{%
-    \@ifpackageloaded{fontspec}{%
-        \newfontfamily\mmunicodemath{STIXGeneral}%
-        {\mmunicodemath 𝕚}%
-    }{\mathfrak{i}}%
+    % \@ifpackageloaded{fontspec}{%
+    %     \newfontfamily\mmunicodemath{STIXGeneral}%
+    %     {\mmunicodemath 𝕚}%
+    % }{%
+    \mathfrak{i}
+    % }%
 }
 \newcommand{\LASSE}{Les assertions suivantes sont équivalentes:}
 
@@ -105,7 +107,7 @@
 \newcommand{\V}{\mathcal{V}}
 \newcommand{\Lin}{\mathscr{L}}
 \newcommand{\M}{\mathscr{M}}
-\newcommand{\AAA}{\mathcal{A}}
+\providecommand{\AAA}{\mathcal{A}}
 \newcommand{\Af}{\mathbb{A}}
 
 % -intervalles

@@ -1,19 +1,38 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{custom_fiche}
 
+% nice boxed theorem, excample & co
+
+%% options
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{
+  family=fiche,
+  prefix=fiche@
+}
+% sets everything to be boxed
+\DeclareBoolOption{allBox}
+\DeclareBoolOption{countSection}
+\DeclareBoolOption{countSubSection}
+\DeclareBoolOption{grayBackground}
+\ProcessKeyvalOptions*
+
+%% to make it work seamlessly in french !
 \RequirePackage{translations}
 
+%% the boxes
 \RequirePackage{tcolorbox}
 \tcbuselibrary{most}
 
+%% fancy hyperref setup
 \RequirePackage{hyperref}
 \hypersetup{
     colorlinks=true,
     linkcolor=black,
-    filecolor=magenta,      
+    filecolor=magenta,
     urlcolor=cyan,
 }
 
+%% super fancy hyperref
 \newcommand{\hyperrefifdefined}[2]{% make an hyperref if the label is defined, otherwise just print the text
 	\@ifundefined{r@#1}{%
 		#2%
@@ -45,10 +64,15 @@
 	mboxstyle/.style={
 		enhanced,
 		sharp corners,
-		colframe=black,
+		colframe=\iffiche@grayBackground gray!40 \else black \fi,
 		boxrule=\boxrulewidth,
 		colback=white,
-		boxed title style={opacityback=0,colframe=white,size=fbox,arc=0mm},
+		boxed title style={
+			opacityback=0,
+			colframe=\iffiche@grayBackground gray!40 \else white \fi,
+			size=fbox,
+			arc=0mm
+		},
 		attach boxed title to top left={yshift=-\tcboxedtitleheight/2,xshift=4mm},
 		top=\tcboxedtitleheight/2,
 		fonttitle=\bfseries\color{black},
@@ -56,19 +80,23 @@
 }
 
 % - environements utilisants les styles
-\newenvironment{cLineBlock}[3][]{
-	\begin{tcolorbox}[
-		mlinestyle,
-		title={\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space},#1]%
-	}
-    {\end{tcolorbox}}
-
 \newenvironment{cFramedBlock}[3][]{
 	\begin{tcolorbox}[
 		mboxstyle,
 		title={\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space},#1]%
 	}
     {\end{tcolorbox}}
+
+\iffiche@allBox
+		\newenvironment{cLineBlock}[3][]{\begin{cFramedBlock}[#1,#2,#3]}{\end{cFramedBlock}}
+\else
+	\newenvironment{cLineBlock}[3][]{
+		\begin{tcolorbox}[
+			mlinestyle,
+			title={\space\ifstrempty{#3}{#2}{#2:~\textmd{#3}}\space},#1]%
+		}
+			{\end{tcolorbox}}
+\fi
 
 \newenvironment{cSmallLineBlock}[3][]{%
 	\begin{footnotesize}
@@ -81,8 +109,12 @@
 
 % -- compteurs
 \newcounter{ContentCounter}
-\counterwithin{ContentCounter}{section}
-\counterwithin{ContentCounter}{subsection}
+\iffiche@countSection
+	\counterwithin{ContentCounter}{section}
+\fi
+\iffiche@countSubSection
+	\counterwithin{ContentCounter}{subsection}
+\fi
 
 
 \newcounter{TheoremCounter}
