@@ -14,6 +14,7 @@
 \DeclareBoolOption{countSection}
 \DeclareBoolOption{countSubSection}
 \DeclareBoolOption{grayBackground}
+\DeclareBoolOption{ignoreEnumitem}
 \ProcessKeyvalOptions*
 
 %% to make it work seamlessly in french !
@@ -41,8 +42,10 @@
 	}%
 }
 
-\RequirePackage{enumitem}
-\setlist[enumerate,1]{label={(\roman*)}}
+\iffiche@ignoreEnumitem\else
+	\RequirePackage{enumitem}
+	\setlist[enumerate,1]{label={(\roman*)}}
+\fi
 
 \newcommand{\mvspace}{\vspace*{-13pt}} % Pour réduire l'espace en cas de maths
 
